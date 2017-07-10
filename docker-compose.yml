@@ -1,0 +1,44 @@
+version: "2"
+services:
+  mysql:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+    ports:
+      - '6630:3306'
+
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '50051:50051'
+    depends_on:
+      - mysql
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./app.proto:/usr/src/app/app.proto
+      - ./package.json:/usr/src/app/package.json
+    networks:
+      - default
+    working_dir: /usr/src/app
+    links:
+      - mysql
+    command:
+      - npm install
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    volumes:
+      - ./src:/usr/src/app/src
+    networks:
+      - default
+    working_dir: /usr/src/app
+    links:
+      - server

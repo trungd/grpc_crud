@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+service API {
+  rpc ListItem (ListItemRequest) returns (ListItemResponse);
+  rpc GetItem (GetItemRequest) returns (Item);
+  rpc AddItem (Item) returns (AddItemResponse);
+  rpc UpdateItem (UpdateItemRequest) returns (UpdateItemResponse);
+  rpc DeleteItem (DeleteItemRequest) returns (DeleteItemResponse);
+}
+
+message GetItemRequest {
+  string id = 1;
+}
+
+message ListItemRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message ListItemResponse {
+  repeated Item items = 1;
+  int32         total = 2;
+  int32         prevPage = 3;
+  int32         nextPage = 4;
+}
+
+message AddItemResponse {
+  Item item = 1;
+}
+
+message UpdateItemRequest {
+  Item item = 1;
+}
+
+message UpdateItemResponse {
+  Item item = 1;
+}
+
+message DeleteItemRequest {
+  string id = 1;
+}
+
+message DeleteItemResponse {
+}
+
+message Item {
+  string  id = 1;
+  string  name = 2;
+  string  title = 3;
+  string  description = 4;
+  int32   price = 5;
+  int32   pv = 6;
+  bool    status = 7;
+}

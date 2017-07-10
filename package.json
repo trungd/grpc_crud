@@ -1,0 +1,20 @@
+{
+  "name": "mercari2017",
+  "version": "1.0.0",
+  "description": "Mercari Internship Webtest",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --use-strict src/server.js",
+    "gen": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:. --grpc_out=./app --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` api.proto"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "google-protobuf": "^3.3.0",
+    "grpc": "^1.4.1",
+    "lorem-ipsum": "^1.0.4",
+    "md5": "^2.2.1",
+    "mysql": "^2.13.0",
+    "redis": "^2.7.1"
+  }
+}
